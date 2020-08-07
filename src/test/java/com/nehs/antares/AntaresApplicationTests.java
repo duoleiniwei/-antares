@@ -19,20 +19,20 @@ class AntaresApplicationTests {
     void contextLoads() {
     }
 
-//    @Test
-//    public void mysqlTestDemo() {
-//        String sql = "SELECT * FROM employees.employees limit 1";
-//        List<Employees> result = jdbcTemplate.query(sql, (RowMapper) (resultSet, i) -> {
-//            Employees employees = new Employees();
-//            employees.setEmpNo(resultSet.getLong("emp_no"));
-//            employees.setBirthDate(resultSet.getDate("birth_date"));
-//            employees.setFirstName(resultSet.getString("first_name"));
-//            employees.setGender(resultSet.getString("gender"));
-//            employees.setHireDate(resultSet.getDate("hire_date"));
-//            employees.setLastName(resultSet.getString("last_name"));
-//            return employees;
-//        });
-//        System.out.println(result.toString());
-//    }
+    @Test
+    public void mysqlTestDemo() {
+        String sql = "SELECT * FROM employees.employees limit 1";
+        List<Employees> result = jdbcTemplate.query(sql, (RowMapper) (resultSet, i) -> {
+            Employees employees = new Employees();
+            employees.setEmpNo(resultSet.getInt("emp_no"));
+            employees.setBirthDate(resultSet.getDate("birth_date"));
+            employees.setFirstName(resultSet.getString("first_name"));
+            employees.setGender(resultSet.getString("gender"));
+            employees.setHireDate(resultSet.getDate("hire_date"));
+            employees.setLastName(resultSet.getString("last_name"));
+            return employees;
+        });
+        System.out.println(result.toString());
+    }
 
 }
