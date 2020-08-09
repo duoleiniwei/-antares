@@ -6,6 +6,7 @@ import com.nehs.antares.service.employees.EmployeesService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class EmployeesServiceImpl implements EmployeesService {
@@ -16,5 +17,10 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public Employees getEmployeeByEmpNo(Long empNo) {
         return employeesMapper.getEmployeesByEmpNo(empNo);
+    }
+
+    @Override
+    public List<Employees> getEmployeeListByName(String firstName, String lastName) {
+        return employeesMapper.getEmployeeListByName(firstName, lastName);
     }
 }
