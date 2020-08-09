@@ -9,3 +9,12 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*/*.xml
   type-aliases-package: com.nehs.antares.entity
+
+
+## 日志配置
+logging:
+  config: src/main/resources/logback.xml
+  file:
+    path: ${user.dir}/antares/log
+  level:
+    com.nehs.antares.mapper: debug

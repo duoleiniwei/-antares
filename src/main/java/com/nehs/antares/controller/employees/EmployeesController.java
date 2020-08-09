@@ -17,9 +17,16 @@ public class EmployeesController {
     @Resource
     private EmployeesService employeesService;
 
+    /**
+     * 根据empNo查询employees
+     *
+     * @param empNo
+     * @return
+     */
     @GetMapping("/employees/getEmployee")
     public Employees getEmployee(@RequestParam Long empNo) {
-        if(StringUtils.isEmpty(empNo)){
+        log.info("============employees/getEmployee接口执行============");
+        if (StringUtils.isEmpty(empNo)) {
             log.error("传入empNo为空！");
         }
         Employees employees = employeesService.getEmployeeByEmpNo(empNo);
