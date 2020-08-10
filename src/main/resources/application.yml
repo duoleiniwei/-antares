@@ -15,6 +15,6 @@ mybatis:
 logging:
   config: src/main/resources/logback.xml
   file:
-    path: ${user.dir}/antares/log
+    path: ${user.dir}/logs/antares
   level:
     com.nehs.antares.mapper: debug
