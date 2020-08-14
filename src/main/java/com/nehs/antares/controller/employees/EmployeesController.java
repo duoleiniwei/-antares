@@ -10,13 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -46,18 +44,16 @@ public class EmployeesController extends BaseController {
     /**
      * 根据名称模糊查询，返回employees
      *
-     * @param firstName
-     * @param lastName
      * @return
      */
     @PostMapping("/employees/getEmployeeListByName")
-    public JsonResponse getEmployeeListByName(String firstName, String lastName) {
+    public JsonResponse getEmployeeListByName(@RequestBody Map<String, String> map) {
         log.info("============employees/getEmployees接口执行============");
-        if (StringUtils.isEmpty(firstName) && StringUtils.isEmpty(lastName)) {
+        if (StringUtils.isEmpty(map.get("firstName")) && StringUtils.isEmpty(map.get("lastName"))) {
             log.error("请输入firstName或者lastName");
             return failed(CommonConstant.failedCode, "请输入firstName或者lastName");
         }
-        List<Employees> employeesList = employeesService.getEmployeeListByName(firstName, lastName);
+        List<Employees> employeesList = employeesService.getEmployeeListByName(map.get("firstName"), map.get("lastName"));
         return succeed(employeesList);
     }
 
