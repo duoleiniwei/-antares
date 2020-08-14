@@ -2,11 +2,14 @@ package com.nehs.antares.controller.employees;
 
 import com.nehs.antares.BaseController;
 import com.nehs.antares.bo.JsonResponse;
+import com.nehs.antares.bo.request.DeptEmpReq;
 import com.nehs.antares.constant.CommonConstant;
 import com.nehs.antares.entity.Employees;
 import com.nehs.antares.service.employees.EmployeesService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @Slf4j
@@ -55,6 +59,14 @@ public class EmployeesController extends BaseController {
         }
         List<Employees> employeesList = employeesService.getEmployeeListByName(firstName, lastName);
         return succeed(employeesList);
+    }
+
+    @PostMapping("/employees/insertDeptEmp")
+    public JsonResponse insertDeptEmp(@Validated DeptEmpReq deptEmpReq) {
+        Boolean a = ObjectUtils.isEmpty(deptEmpReq);
+        Boolean b = StringUtils.isEmpty(deptEmpReq);
+        Boolean c = Objects.nonNull(deptEmpReq);
+        return null;
     }
 
 }
