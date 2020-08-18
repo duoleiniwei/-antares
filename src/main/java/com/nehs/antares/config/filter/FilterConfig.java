@@ -15,7 +15,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean someFilterRegistration() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new ReplaceStreamFilter());
+        registrationBean.setFilter(new TrimStreamFilter());
         registrationBean.addUrlPatterns("/*");
         registrationBean.setName("StreamFilter");
         return registrationBean;

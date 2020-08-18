@@ -109,6 +109,13 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
+        <!-- jodd工具包 -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd</artifactId>
+            <version>3.3.8</version>
+        </dependency>
+
     </dependencies>
 
 

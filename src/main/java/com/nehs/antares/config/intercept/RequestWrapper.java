@@ -1,74 +1,39 @@
 package com.nehs.antares.config.intercept;
 
+import jodd.io.StreamUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-/**
- * 重写request，获取body数据的时候读取新的body
- **/
 
 @Slf4j
 public class RequestWrapper extends HttpServletRequestWrapper {
+    private byte[] body; //用于保存读取body中数据   
 
-    // 重新赋值的body数据
-    private byte[] bodyJsonStr;
-
-    public RequestWrapper(HttpServletRequest request, byte[] bodyJsonStr) {
+    public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-        this.bodyJsonStr = bodyJsonStr;
+        //读取请求的数据保存到本类当中
+        body = StreamUtil.readBytes(request.getReader(), "UTF-8");
     }
 
-    public RequestWrapper(HttpServletRequest request) throws UnsupportedEncodingException {
-        super(request);
-        String bodyStr = getBodyString(request);
-        bodyJsonStr = bodyStr.getBytes("utf-8");
+    //覆盖（重写）父类的方法
+    @Override
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
-    public String getBodyString(final ServletRequest servletRequest) {
-        try {
-            return inputStreamString(servletRequest.getInputStream());
-        } catch (IOException e) {
-            log.error("", e);
-            throw new RuntimeException();
-        }
-    }
-
-    public String getBodyString() {
-        final InputStream inputStream = new ByteArrayInputStream(bodyJsonStr);
-        return inputStreamString(inputStream);
-    }
-
-    private String inputStreamString(InputStream inputStream) {
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = null;
-        String line;
-        try {
-            br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
-            while (null != (line = br.readLine())) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
-
-
+    //覆盖（重写）父类的方法
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        if (StringUtils.isEmpty(bodyJsonStr.toString())) {
-            bodyJsonStr = "".getBytes("utf-8");
-        }
-        // 必须指定utf-8编码，否则json请求数据中如果包含中文，会出现异常
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bodyJsonStr.toString().getBytes("utf-8"));
-        ServletInputStream servletInputStream = new ServletInputStream() {
+        final ByteArrayInputStream bais = new ByteArrayInputStream(body);
+        return new ServletInputStream() {
             @Override
             public boolean isFinished() {
                 return false;
@@ -81,27 +46,32 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
             @Override
             public void setReadListener(ReadListener readListener) {
+
             }
 
             @Override
             public int read() throws IOException {
-                return byteArrayInputStream.read();
+                return bais.read();
             }
         };
-        return servletInputStream;
     }
 
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    /**
+     * 获取body中的数据
+     *
+     * @return
+     */
+    public byte[] getBody() {
+        return body;
     }
 
-    public byte[] getBodyJsonStr() {
-        return bodyJsonStr;
+    /**
+     * 把处理后的参数放到body里面
+     *
+     * @param body
+     */
+    public void setBody(byte[] body) {
+        this.body = body;
     }
 
-    public void setBodyJsonStr(byte[] bodyJsonStr) {
-        this.bodyJsonStr = bodyJsonStr;
-    }
 }
-
