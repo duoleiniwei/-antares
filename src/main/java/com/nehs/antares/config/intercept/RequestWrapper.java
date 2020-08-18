@@ -1,6 +1,7 @@
 package com.nehs.antares.config.intercept;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -8,97 +9,66 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-import java.nio.charset.Charset;
+
+/**
+ * 重写request，获取body数据的时候读取新的body
+ **/
 
 @Slf4j
 public class RequestWrapper extends HttpServletRequestWrapper {
-    /**
-     * 存储body数据的容器
-     */
-    private final byte[] body;
 
-    public RequestWrapper(HttpServletRequest request) throws IOException {
+    // 重新赋值的body数据
+    private byte[] bodyJsonStr;
+
+    public RequestWrapper(HttpServletRequest request, byte[] bodyJsonStr) {
         super(request);
-
-        // 将body数据存储起来
-        String bodyStr = getBodyString(request);
-        body = bodyStr.getBytes(Charset.defaultCharset());
+        this.bodyJsonStr = bodyJsonStr;
     }
 
-    /**
-     * 获取请求Body
-     *
-     * @param request request
-     * @return String
-     */
-    public String getBodyString(final ServletRequest request) {
+    public RequestWrapper(HttpServletRequest request) throws UnsupportedEncodingException {
+        super(request);
+        String bodyStr = getBodyString(request);
+        bodyJsonStr = bodyStr.getBytes("utf-8");
+    }
+
+    public String getBodyString(final ServletRequest servletRequest) {
         try {
-            return inputStream2String(request.getInputStream());
+            return inputStreamString(servletRequest.getInputStream());
         } catch (IOException e) {
             log.error("", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
     }
 
-    /**
-     * 获取请求Body
-     *
-     * @return String
-     */
     public String getBodyString() {
-        final InputStream inputStream = new ByteArrayInputStream(body);
-
-        return inputStream2String(inputStream);
+        final InputStream inputStream = new ByteArrayInputStream(bodyJsonStr);
+        return inputStreamString(inputStream);
     }
 
-    /**
-     * 将inputStream里的数据读取出来并转换成字符串
-     *
-     * @param inputStream inputStream
-     * @return String
-     */
-    private String inputStream2String(InputStream inputStream) {
+    private String inputStreamString(InputStream inputStream) {
         StringBuilder sb = new StringBuilder();
-        BufferedReader reader = null;
-
+        BufferedReader br = null;
+        String line;
         try {
-            reader = new BufferedReader(new InputStreamReader(inputStream, Charset.defaultCharset()));
-            String line;
-            while ((line = reader.readLine()) != null) {
+            br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            while (null != (line = br.readLine())) {
                 sb.append(line);
             }
         } catch (IOException e) {
-            log.error("", e);
-            throw new RuntimeException(e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    log.error("", e);
-                }
-            }
+            e.printStackTrace();
         }
-
         return sb.toString();
     }
 
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(getInputStream()));
-    }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-
-        final ByteArrayInputStream inputStream = new ByteArrayInputStream(body);
-
-        return new ServletInputStream() {
-            @Override
-            public int read() throws IOException {
-                return inputStream.read();
-            }
-
+        if (StringUtils.isEmpty(bodyJsonStr.toString())) {
+            bodyJsonStr = "".getBytes("utf-8");
+        }
+        // 必须指定utf-8编码，否则json请求数据中如果包含中文，会出现异常
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bodyJsonStr.toString().getBytes("utf-8"));
+        ServletInputStream servletInputStream = new ServletInputStream() {
             @Override
             public boolean isFinished() {
                 return false;
@@ -112,6 +82,26 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             @Override
             public void setReadListener(ReadListener readListener) {
             }
+
+            @Override
+            public int read() throws IOException {
+                return byteArrayInputStream.read();
+            }
         };
+        return servletInputStream;
+    }
+
+    @Override
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    }
+
+    public byte[] getBodyJsonStr() {
+        return bodyJsonStr;
+    }
+
+    public void setBodyJsonStr(byte[] bodyJsonStr) {
+        this.bodyJsonStr = bodyJsonStr;
     }
 }
+
