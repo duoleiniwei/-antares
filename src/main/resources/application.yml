@@ -4,7 +4,20 @@ spring:
     url: jdbc:mysql://192.168.159.128/employees
     username: root
     password: root
-
+  redis:
+    host: 192.168.159.128
+    port: 6379
+    # 密码 没有则可以不填
+    password:
+    # 如果使用的jedis 则将lettuce改成jedis即可
+    lettuce:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 8
+        # 最大空闲连接数 默认8
+        max-idle: 8
+        # 最小空闲连接数 默认0
+        min-idle: 0
 
 mybatis:
   mapper-locations: classpath:mapper/*/*.xml
