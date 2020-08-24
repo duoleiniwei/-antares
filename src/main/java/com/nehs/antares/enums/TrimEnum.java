@@ -1,4 +1,4 @@
-package com.nehs.antares;
+package com.nehs.antares.enums;
 
 /**
  * 需要进行trim的URI
