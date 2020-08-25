@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * @program: springbootdemo
- * @Date: 2019/1/25 15:03
- * @Author: Mr.Zheng
- * @Description:
+ * redis
  */
 @Slf4j
 @RequestMapping("/redis")
