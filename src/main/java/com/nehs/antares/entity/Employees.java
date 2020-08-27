@@ -19,5 +19,14 @@ public class Employees {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date hireDate;
 
+    public Employees(Integer empNo, String firstName, String lastName, String gender) {
+        this.empNo = empNo;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+    }
 
+    public Employees() {
+
+    }
 }
