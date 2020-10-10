@@ -18,7 +18,7 @@ public class MoviePlay {
         MovieService proxyMovieService = (MovieService) Proxy.newProxyInstance(
                 MovieService.class.getClassLoader(), new Class[]{MovieService.class},
                 new MovieProxyHandler(movieService));
-        proxyMovieService.play();
+        proxyMovieService.play();//
         System.out.println("代理对象的类型 ： " + proxyMovieService.getClass().getName());
         System.out.println("代理对象所在类的父类型 ： " + proxyMovieService.getClass().getGenericSuperclass());
     }
