@@ -1,9 +1,9 @@
 package com.nehs.antares.utils.reflect;
 
-public class reflectObject {
+public class ReflectObject {
     private String value;
 
-    public reflectObject() {
+    public ReflectObject() {
         value = "neHs";
     }
 

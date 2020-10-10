@@ -4,14 +4,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class reflectDemo {
+public class RreflectDemo {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         /**
          * 通过类路径获取对象
          */
-        Class<?> reflectClass = Class.forName("com.nehs.antares.utils.reflect.reflectObject");
-        reflectObject reflectObject = (reflectObject) reflectClass.newInstance();
+        Class<?> reflectClass = Class.forName("com.nehs.antares.utils.reflect.ReflectObject");
+        ReflectObject reflectObject = (ReflectObject) reflectClass.newInstance();
         /**
          * 遍历方法，并输出方法名
          */
