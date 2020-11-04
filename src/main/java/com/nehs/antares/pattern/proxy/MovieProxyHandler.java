@@ -11,7 +11,10 @@ import java.lang.reflect.Method;
 
 public class MovieProxyHandler implements InvocationHandler {
 
-    private Object proxied;//被代理对象
+    /**
+     * 被代理对象
+     */
+    private Object proxied;
 
     public MovieProxyHandler(Object proxied) {
         this.proxied = proxied;
