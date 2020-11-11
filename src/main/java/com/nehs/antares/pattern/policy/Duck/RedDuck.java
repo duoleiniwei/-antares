@@ -1,7 +1,7 @@
-package com.nehs.antares.pattern.policy;
+package com.nehs.antares.pattern.policy.Duck;
 
-import com.nehs.antares.pattern.policy.Impl.FlyWithWings;
-import com.nehs.antares.pattern.policy.Impl.HahaQuack;
+import com.nehs.antares.pattern.policy.Duck.Impl.FlyWithWings;
+import com.nehs.antares.pattern.policy.Duck.Impl.HahaQuack;
 
 /**
  * @author 12239

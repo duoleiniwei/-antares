@@ -1,4 +1,4 @@
-package com.nehs.antares.utils.Thread;
+package com.nehs.antares.utils.thread;
 
 import java.util.concurrent.*;
 

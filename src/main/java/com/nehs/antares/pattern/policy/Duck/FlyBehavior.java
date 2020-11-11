@@ -1,4 +1,4 @@
-package com.nehs.antares.pattern.policy;
+package com.nehs.antares.pattern.policy.Duck;
 
 /**
  * @author 12239

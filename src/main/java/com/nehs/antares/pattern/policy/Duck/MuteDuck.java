@@ -1,8 +1,8 @@
-package com.nehs.antares.pattern.policy;
+package com.nehs.antares.pattern.policy.Duck;
 
-import com.nehs.antares.pattern.policy.Impl.FlyNoWay;
-import com.nehs.antares.pattern.policy.Impl.HahaQuack;
-import com.nehs.antares.pattern.policy.Impl.MuteQuack;
+import com.nehs.antares.pattern.policy.Duck.Impl.FlyNoWay;
+import com.nehs.antares.pattern.policy.Duck.Impl.HahaQuack;
+import com.nehs.antares.pattern.policy.Duck.Impl.MuteQuack;
 
 /**
  * @author 12239

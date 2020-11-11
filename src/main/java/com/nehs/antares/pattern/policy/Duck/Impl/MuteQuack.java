@@ -1,6 +1,6 @@
-package com.nehs.antares.pattern.policy.Impl;
+package com.nehs.antares.pattern.policy.Duck.Impl;
 
-import com.nehs.antares.pattern.policy.QuackBehavior;
+import com.nehs.antares.pattern.policy.Duck.QuackBehavior;
 
 /**
  * @author 12239

@@ -1,6 +1,6 @@
-package com.nehs.antares.pattern.policy.Impl;
+package com.nehs.antares.pattern.policy.Duck.Impl;
 
-import com.nehs.antares.pattern.policy.FlyBehavior;
+import com.nehs.antares.pattern.policy.Duck.FlyBehavior;
 
 /**
  * @author 12239
