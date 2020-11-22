@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author neHs
+ */
 @Data
 public class JsonResponse {
 

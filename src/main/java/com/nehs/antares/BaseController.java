@@ -9,6 +9,7 @@ import java.util.List;
  * 所有controller类的基类，负责校验和返回统一结果对象
  * <p>
  * 调用成功用"succeeded"，失败调用"failed"
+ * @author neHs
  */
 public abstract class BaseController {
 

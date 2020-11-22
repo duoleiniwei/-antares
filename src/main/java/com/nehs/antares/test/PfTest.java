@@ -2,6 +2,9 @@ package com.nehs.antares.test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author neHs
+ */
 public class PfTest {
 
     static class BitKeeper {

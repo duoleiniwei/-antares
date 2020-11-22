@@ -2,6 +2,7 @@ package com.nehs.antares.pattern.proxy;
 
 /**
  * 代理模式-实现类
+ * @author neHs
  */
 public class MovieServiceImpl implements MovieService {
 

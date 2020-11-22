@@ -4,6 +4,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * 代理模式-实现测试类
+ * @author neHs
  */
 public class MoviePlay {
     public static void main(String[] args) {

@@ -6,6 +6,7 @@ import com.nehs.antares.bo.request.DeptEmpReq;
 import com.nehs.antares.constant.CommonConstant;
 import com.nehs.antares.entity.Employees;
 import com.nehs.antares.service.employees.EmployeesService;
+import com.nehs.antares.utils.annotation.LoggerAnnotation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -30,6 +31,7 @@ public class EmployeesController extends BaseController {
      * @param empNo
      * @return
      */
+    @LoggerAnnotation
     @GetMapping("/employees/getEmployee")
     public JsonResponse getEmployee(@RequestParam Long empNo) {
         log.info("============employees/getEmployee接口执行============");

@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
  * Title: InvocationHandler 的实现
  * Description: 每个代理的实例都有一个与之关联的 InvocationHandler
  * 实现类，如果代理的方法被调用，那么代理便会通知和转发给内部的 InvocationHandler 实现类，由它调用invoke()去处理。
+ * @author neHs
  */
 
 public class MovieProxyHandler implements InvocationHandler {

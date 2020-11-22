@@ -2,6 +2,7 @@ package com.nehs.antares.enums;
 
 /**
  * 需要进行trim的URI
+ * @author neHs
  */
 public enum TrimEnum {
 

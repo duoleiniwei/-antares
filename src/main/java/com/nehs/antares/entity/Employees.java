@@ -4,13 +4,15 @@ package com.nehs.antares.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nehs.antares.utils.annotation.UpperAnnotation;
 import lombok.Data;
-import org.apache.commons.lang3.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Date;
 
 
+/**
+ * @author neHs
+ */
 @Data
 public class Employees {
     @UpperAnnotation("员工编码")

@@ -1,5 +1,8 @@
 package com.nehs.antares.utils.reflect;
 
+/**
+ * @author neHs
+ */
 public class ReflectObject {
     private String value;
 

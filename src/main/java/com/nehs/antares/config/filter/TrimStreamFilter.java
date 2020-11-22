@@ -15,6 +15,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @author neHs
+ */
 @Slf4j
 public class TrimStreamFilter implements Filter {
     @Override
