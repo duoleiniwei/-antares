@@ -19,9 +19,7 @@ public class ReflectDemo {
          * 遍历方法，并输出方法名
          */
         Method[] methods = reflectClass.getDeclaredMethods();
-        Arrays.stream(methods).forEach(method -> {
-            System.out.println("name:" + method.getName());
-        });
+        Arrays.stream(methods).forEach(method -> System.out.println("name:" + method.getName()));
         /**
          * 根据获取的方法名执行public方法
          */
@@ -35,5 +33,6 @@ public class ReflectDemo {
         privateMethod.setAccessible(true);
         privateMethod.invoke(reflectObject);
     }
+
 
 }

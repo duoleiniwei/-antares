@@ -13,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -37,6 +38,7 @@ public class TrimStreamFilter implements Filter {
         for (TrimEnum trimEnum : TrimEnum.values()) {
             if (StringUtils.contains(url, trimEnum.getRequestURI())) {
                 flag = true;
+                break;
             }
         }
         if (!flag) {
@@ -69,7 +71,7 @@ public class TrimStreamFilter implements Filter {
 
         // 把参数转换之后放到我们的body里面
         String json = JSON.toJSONString(jsonMap);
-        requestWrapper.setBody(json.getBytes("UTF-8"));
+        requestWrapper.setBody(json.getBytes(StandardCharsets.UTF_8));
         // 放行
         chain.doFilter(requestWrapper, response);
     }

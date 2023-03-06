@@ -5,6 +5,11 @@ import com.google.common.hash.Funnels;
 
 import java.util.BitSet;
 
+/**
+ * 布隆过滤器简单实现
+ *
+ * @author 12239
+ */
 public class BloomFilterDemo {
     /**
      * 位数组的大小
