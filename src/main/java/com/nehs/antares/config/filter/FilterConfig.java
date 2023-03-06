@@ -21,6 +21,7 @@ public class FilterConfig {
         registrationBean.setFilter(new TrimStreamFilter());
         registrationBean.addUrlPatterns("/*");
         registrationBean.setName("StreamFilter");
+        //
         return registrationBean;
     }
 }
